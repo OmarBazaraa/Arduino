@@ -1,5 +1,5 @@
 # Embedded Systems Development Task
-Simple Arduino program for XIOT internship filteration.
+Simple Arduino program for XIOT internship filtration.
 
 ## About the System
 The system has one input <i><b>switch</b></i> (ON/OFF button) that controls a <i><b>LED</b></i>.
@@ -18,7 +18,8 @@ A simple ON/OFF button connected to an <i><b>interrupt</b></i> input pin of the 
 Whenever the state of the switch changes, the Arduino automatically calls the interrupt-service routine (ISR) attached with that pin.
 
 #### LED
-A simple LED that reflects the state of the switch that turns ON with digital <i>HIGH</i> voltage.
+A simple digital LED that reflects the state of the switch.<br>
+Connected to a digital output pin of the Arduino.
 
 #### Temperature Sensor
 An analog temperature sensor connected to one of the Arduino's analog pins with the following specifications:
@@ -36,8 +37,9 @@ To convert from the voltage value to the actual temperature Celsius degree we wi
 `temp_degree (in Celsius) = (voltage_value (in milliVolts) - 500) / 10`
 
 ## How to Use?
-* Get the system components and connect them as described above.
 * Clone this repository.
+* Get the system components and connect them as described above.
+* Change the pins constant numbers in the code to match your actual connection.
 * Make sure to install Arduino-IDE.
 * Burn the code on the Arduino chip through the IDE.
 * Run the system and keep watching the serial monitor.
