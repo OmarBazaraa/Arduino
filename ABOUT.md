@@ -25,7 +25,7 @@ We used C++ to develop the computer-side algorithms for solving the Flow game, a
 
 #### OpenCV
 We used OpenCV as an image processing framework to
-- Extract the state of the game from the taken screenshot of the game.
+- Extract the state of the game from the taken screenshot.
 - Detect the position of the "Next Level" button after the game is solved.
 - Do thresholding and some pre-processing on the image before running painter algorithm.
 
