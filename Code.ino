@@ -3,18 +3,18 @@
 // ==========================================
 
 // IO pins assignments
-const int LED_PIN = 13;
-const int SWITCH_PIN = 2;
-const int TEMP_SENSOR_PIN = 0;
+const int LED_PIN = 13;         // Digital Pin
+const int SWITCH_PIN = 2;       // Interrupt Pin
+const int TEMP_SENSOR_PIN = 0;  // Analog Pin
 
 // Temperature sensor scan interval in milliseconds
-const int TEMP_SENSOR_INTERVAL_MILLIS = 3000;
+const int TEMP_SENSOR_INTERVAL = 3000;
 
-// The timestamp in milliseconds of the last temperature sensor scan
+// The timestamp (in milliseconds) of the last temperature sensor scan
 long prevTempTimestamp = 0;
 
-// Flag to indicate whether "pressed" is sent to the serial monitor or not
-bool pressedSent = false;
+// LED state
+int ledState = 0;
 
 // ==========================================
 // ARDUINO FUNCTIONS
@@ -36,7 +36,7 @@ void setup() {
     pinMode(TEMP_SENSOR_PIN, INPUT);
 
     // Attach the switch interrupt handler (ISR)
-    attachInterrupt(digitalPinToInterrupt(SWITCH_PIN), switchHandler, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(SWITCH_PIN), switchHandler, RISING);
 
     // ...
 }
@@ -54,24 +54,17 @@ void loop() {
 
 /**
  * The interrupt service routine of the switch.
- * To be called whenever the state of the switch is changed
- * (i.e. from LOW to HIGH or vice versa).
+ * To be called during the rising edge of the switch.
+ * (i.e. from LOW to HIGH)
  */
 void switchHandler() {
-    // Read the state of the switch (ON or OFF)
-    int state = digitalRead(SWITCH_PIN);
+    // Toggle the state of the LED
+    ledState = !ledState;
+    digitalWrite(LED_PIN, ledState);
 
-    // Reflect the switch state to the LED
-    digitalWrite(LED_PIN, state);
-
-    // Send LED state through serial port
-    Serial.println(state ? "LED ON" : "LED OFF");
-
-    // Send switch pressed message only the first time the switch is changed
-    if (!pressedSent) {
-        Serial.println("Pressed");
-        pressedSent = true;
-    }
+    // Send info messages through serial monitor
+    Serial.println("Pressed");
+    Serial.println(ledState ? "LED ON" : "LED OFF");
 }
 
 /**
@@ -83,7 +76,7 @@ void scanTemperature() {
     long currentMillis = millis();
 
     // Return if the interval didn't pass yet
-    if (currentMillis - prevTempTimestamp < TEMP_SENSOR_INTERVAL_MILLIS) {
+    if (currentMillis - prevTempTimestamp < TEMP_SENSOR_INTERVAL) {
         return;
     }
 

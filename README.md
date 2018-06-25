@@ -2,9 +2,10 @@
 Simple Arduino program for XIOT internship filtration.
 
 ## About the System
-The system has one input <i><b>switch</b></i> (ON/OFF button) that controls a <i><b>LED</b></i>.
-- Whenever the switch is ON the LED should be lighting and a serial message is sent to the serial monitor holding the current state of the ELD.
-- The first time when the state of the switch is changed, a serial message holding "Pressed" is sent to the serial monitor.
+The system has one input <i><b>switch</b></i> (push button) that controls a <i><b>LED</b></i>.<br>
+Whenever the switch is pressed:
+- The LED changes its state (from ON to OFF or vice versa).
+- A serial message holding "Pressed", and another message holding the current state of the LED is sent to the serial monitor.
 
 The system also has an analog <i><b>temperature sensor</b></i>.<br>
 The temperature degree (in Celsius) is read every 3 seconds and is sent to the serial monitor.
@@ -14,11 +15,11 @@ The temperature degree (in Celsius) is read every 3 seconds and is sent to the s
 A microcontroller that controls and manages the system.
 
 #### Switch
-A simple ON/OFF button connected to an <i><b>interrupt</b></i> input pin of the Arduino.<br>
-Whenever the state of the switch changes, the Arduino automatically calls the interrupt-service routine (ISR) attached with that pin.
+A simple ON/OFF push button connected to an <i><b>interrupt</b></i> input pin of the Arduino.<br>
+Whenever the switch is pressed (during the rising edge), the Arduino automatically calls the interrupt-service routine (ISR) attached with that pin.
 
 #### LED
-A simple digital LED that reflects the state of the switch.<br>
+A simple digital LED that toggle its state when pressing the switch.<br>
 Connected to a digital output pin of the Arduino.
 
 #### Temperature Sensor
