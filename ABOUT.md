@@ -65,4 +65,5 @@ This controller program is designed in an expandable way. All the logic to commu
 	- Phone not in position.
 	- Flow game activity moved to the background.
 	- Phone disconnected.
+	- Arduino disconnected.
 	- Power-off.
